@@ -1,0 +1,17 @@
+<launch>
+
+<node pkg= "tf" type= "static_transform_publisher" name= "front_lidar" args= "0.3 0.0 -0.115 -0.9999993658637698 0.0007963264582434141 6.341362302272584e-07 base_link sick_front 1000" />
+<node pkg= "tf" type= "static_transform_publisher" name= "rear_lidar" args= "-0.3 0.0 -0.115 -0.0007963 -0.9999994 0.0000006 -0.0007963 base_link sick_rear 1000" />
+<node pkg="tf" type="static_transform_publisher" name="sum_scan"
+      args="0.0 0.0 -0.115 0 0 0 base_link sum_scan 100" />
+
+
+<node pkg= "second_project" name= "odom_map" type= "odom_map" output= "screen"/>
+<node pkg= "second_project" name= "lidar_sum" type= "lidar_sum" output= "screen"/>
+
+<node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
+
+<node pkg= "rviz" type= "rviz" name= "rviz" args="-d $(find second_project)/rviz/mapping.rviz" />
+
+</node>
+</launch>
